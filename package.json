@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./dist/app.js",
+    "devstart": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/app.js\""
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -28,6 +29,7 @@
     "@types/node": "^18.11.7",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsc-watch": "^5.0.3"
   }
 }
