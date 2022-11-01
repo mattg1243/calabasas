@@ -1,19 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import 'antd/dist/antd.css';
+import Register from './components/Register';
+import { Layout } from 'antd';
+import { FireOutlined } from '@ant-design/icons';
+import Login from './components/Login';
+
+const { Header, Footer, Sider, Content } = Layout;
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
+      <Layout style={{ width: '100%', height: '100%' }}>
+        <Header></Header>
+        <Content style={{ padding: '50px', width: '100%', justifyContent: 'center' }}>
+          <Login />
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>SweatshopCalabasas ©2022</Footer>
+      </Layout>
     </div>
   );
 }
