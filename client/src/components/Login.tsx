@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Content } from 'antd/lib/layout/layout';
 // this alert type should be shared
-type Alert = { status: 'success' | 'error' | 'warning'; message: string };
+type AlertStateObj = { status: 'success' | 'error' | 'warning'; message: string };
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState<string>('');
