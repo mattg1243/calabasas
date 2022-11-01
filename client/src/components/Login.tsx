@@ -8,7 +8,7 @@ type AlertStateObj = { status: 'success' | 'error' | 'warning'; message: string 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [alert, setAlert] = useState<Alert | null>(null);
+  const [alert, setAlert] = useState<AlertStateObj | null>(null);
 
   const sendLoginRequest = async () => {
     const data = { email, password };
