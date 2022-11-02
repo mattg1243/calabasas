@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./dist/src/app.js",
+    "prodstart": "node ./dist/app.js",
+    "dockerstart": "docker run --rm -it --env-file ./.env -p 2222:2222/tcp -p 3001:3001/tcp -p 8080:8080/tcp sweatshopcalabasas:latest",
     "devstart": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/src/app.js\"",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
