@@ -71,10 +71,10 @@ export default class AuthHandlers {
       const user = await findUserByEmail(email);
       // invalid credentials
       if (!user) {
-        return next(new AppError(400, 'No user found'));
+        return next(new AppError(401, 'No user found'));
       }
       if (!(await User.comparePasswords(password, user.password))) {
-        return next(new AppError(400, 'Invalid password'));
+        return next(new AppError(401, 'Invalid password'));
       }
       // return signed tokens
       const { accessToken, refreshToken } = await signTokens(user);
