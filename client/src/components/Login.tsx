@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Content } from 'antd/lib/layout/layout';
 import logo from '../assets/logo_four_squares.png';
 // this alert type should be shared
-type AlertStateObj = { status: 'success' | 'error' | 'warning'; message: string };
+export type AlertStateObj = { status: 'success' | 'error' | 'warning'; message: string };
 
 export default function Login(): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -13,21 +13,19 @@ export default function Login(): JSX.Element {
 
   const sendLoginRequest = async () => {
     const data = { email, password };
-    console.log(data);
     try {
       const response = await axios.post('http://localhost:3001/api/auth/login', data, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-      console.log(response);
       if (response.status === 200) {
         setAlert({ status: 'success', message: 'You are now logged in!' });
       }
     } catch (err: any) {
       console.error(err.message);
       let message: string;
-      if (err.status === 401) {
+      if (err.response.status === 401) {
         message = 'Invalid login credentials';
       } else {
         message = 'An error occured while logging in: ' + err.message;
@@ -62,6 +60,7 @@ export default function Login(): JSX.Element {
         >
           {/* this needs to be able to accept an email OR username */}
           <Input
+            className="round-white-input"
             placeholder="Email"
             style={{ width: '600px', height: '50px', borderRadius: '40px' }}
             onChange={(e) => setEmail(e.target.value)}
@@ -71,6 +70,7 @@ export default function Login(): JSX.Element {
 
         <Form.Item name="password" rules={[{ required: true, message: 'Please input your password!' }]}>
           <Input.Password
+            className="round-white-input"
             placeholder="Password"
             style={{ width: '600px', height: '50px', borderRadius: '40px' }}
             onChange={(e) => setPassword(e.target.value)}
