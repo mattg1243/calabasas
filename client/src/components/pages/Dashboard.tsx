@@ -1,4 +1,4 @@
-import { Breadcrumb, Layout } from 'antd';
+import { Breadcrumb, Upload, Layout } from 'antd';
 import { Content, Header } from 'antd/lib/layout/layout';
 import { useEffect } from 'react';
 import DashRow from '../DashRow';
@@ -15,6 +15,7 @@ export default function Dashboard() {
       <Header>
         Dashboard
         <Breadcrumb>wow</Breadcrumb>
+        <Upload name='beat' action='http://localhost:3001/api/upload/beat'>Upload Beat</Upload>
         <Content>
           {topTen.map((beat) => {
             return <DashRow beat={beat} />;
