@@ -6,6 +6,7 @@ import logger from 'morgan';
 import 'reflect-metadata';
 // routes
 import authRouter from './routes/auth.routes';
+import uploadRouter from './routes/upload.routes';
 import { AppDataSource } from './database/dataSource';
 import cors from 'cors';
 import AppError from './utils/AppError';
@@ -35,6 +36,7 @@ AppDataSource.initialize().then(async () => {
   // app.use('/users', usersRouter);
   // render react build
   app.use('/api/auth', authRouter);
+  app.use('/api/upload', uploadRouter);
   app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
   });
