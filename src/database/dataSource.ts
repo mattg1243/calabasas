@@ -1,6 +1,8 @@
 import { DataSource } from 'typeorm';
 import User from './models/User.entity';
 import dotenv from 'dotenv';
+import Beat from './models/Beat.entity';
+import Credit from './models/Credit.entity';
 dotenv.config();
 
 export const AppDataSource = new DataSource({
@@ -12,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: 'sweatshop_calabasas',
   synchronize: true,
   logging: true,
-  entities: [User],
+  entities: [User, Beat, Credit],
   subscribers: [],
   migrations: [],
   ssl: true,

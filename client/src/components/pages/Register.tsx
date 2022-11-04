@@ -1,18 +1,20 @@
-import { Button, Checkbox, Form, Input, Alert, message } from 'antd';
+import { Button, Form, Input, Alert, Switch } from 'antd';
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../index.module.css';
 import { Content } from 'antd/lib/layout/layout';
-import logo from '../assets/logo_four_squares.png';
+import logo from '../../assets/logo_four_squares.png';
 import type { AlertStateObj } from './Login';
-import { match } from 'assert';
+import { useNavigate } from 'react-router-dom';
 
 export default function Register(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setConfirmPassword] = useState<string>('');
+  const [acctType, setAcctType] = useState<'artist' | 'producer'>('artist');
   const [alert, setAlert] = useState<AlertStateObj | null>(null);
+
+  const navigate = useNavigate();
 
   const sendRegisterRequest = async () => {
     if (password === passwordConfirm) {
@@ -21,10 +23,12 @@ export default function Register(): JSX.Element {
           email,
           username,
           password,
-          acctType: 'artist',
+          acctType,
         });
         console.log(response);
         setAlert({ status: 'success', message: 'Account created succesfully, you may now login' });
+        localStorage.setItem('user', JSON.stringify(response.data.user));
+        navigate(`/dash/${response.data.user._id}`);
       } catch (err) {
         console.error(err);
       }
@@ -34,12 +38,12 @@ export default function Register(): JSX.Element {
     }
   };
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
+  const changeAcctType = () => {
+    if (acctType === 'artist') {
+      setAcctType('producer');
+    } else {
+      setAcctType('artist');
+    }
   };
 
   return (
@@ -52,8 +56,6 @@ export default function Register(): JSX.Element {
         initialValues={{ remember: true }}
         wrapperCol={{ span: 16, offset: 4 }}
         labelCol={{ span: 16, offset: 4 }}
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
         style={{ justifyContent: 'center', textAlign: 'center', width: '100%' }}
       >
@@ -100,6 +102,15 @@ export default function Register(): JSX.Element {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
         </Form.Item>
+
+        <span style={{ display: 'inline-flex', padding: '1rem', marginLeft: '2rem' }}>
+          <h3>Artist</h3>
+          <Switch
+            style={{ backgroundColor: 'black', margin: '0 1rem 0 1rem', justifySelf: 'center' }}
+            onChange={() => changeAcctType()}
+          />
+          <h3>Producer</h3>
+        </span>
 
         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>
           <Button

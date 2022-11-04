@@ -2,7 +2,8 @@ import { Alert, Button, Checkbox, Form, Input } from 'antd';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Content } from 'antd/lib/layout/layout';
-import logo from '../assets/logo_four_squares.png';
+import logo from '../../assets/logo_four_squares.png';
+import { useNavigate } from 'react-router-dom';
 // this alert type should be shared
 export type AlertStateObj = { status: 'success' | 'error' | 'warning'; message: string };
 
@@ -10,6 +11,8 @@ export default function Login(): JSX.Element {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [alert, setAlert] = useState<AlertStateObj | null>(null);
+
+  const navigate = useNavigate();
 
   const sendLoginRequest = async () => {
     const data = { email, password };
@@ -21,6 +24,7 @@ export default function Login(): JSX.Element {
       });
       if (response.status === 200) {
         setAlert({ status: 'success', message: 'You are now logged in!' });
+        navigate(`/dash/${response.data.user}`);
       }
     } catch (err: any) {
       console.error(err.message);

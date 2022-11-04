@@ -32,23 +32,19 @@ export default class AuthHandlers {
   public static registerUser = async (req: Request<{}, {}, CreateUserInput>, res: Response, next: NextFunction) => {
     try {
       // unpack req body
-      const { fname, lname, username, password, email } = req.body;
+      const { username, password, email, acctType } = req.body;
       // create user entity
       const user = await createUser({
-        fname,
-        lname,
         email: email.toLowerCase(),
         username,
         password,
-        acctType: 'artist',
+        acctType,
       });
       // send the created user
       console.log(` ---  user registered: ${username}  ---`);
       res.status(201).json({
         status: 'success',
-        data: {
-          user,
-        },
+        user,
       });
       //catch err
     } catch (err: any) {
@@ -86,11 +82,8 @@ export default class AuthHandlers {
         httpOnly: false,
       });
       // send response
+      res.status(200).json({ status: 'success', user: `${user._id}` });
       console.log(`  ---  user logged in: ${user.username}  ---`);
-      res.status(200).json({
-        status: 'success',
-        accessToken,
-      });
     } catch (err: any) {
       return res.status(401).json({
         status: 'InvalidLogin',
