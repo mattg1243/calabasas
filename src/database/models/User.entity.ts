@@ -1,6 +1,7 @@
-import { Entity, Column, Index, BeforeInsert } from 'typeorm';
+import { Entity, Column, Index, BeforeInsert, OneToMany, ManyToOne } from 'typeorm';
 import Model from './Model.entity';
 import * as bcrypt from 'bcrypt';
+import Beat from './Beat.entity';
 
 @Entity('users')
 export default class User extends Model {
@@ -14,17 +15,32 @@ export default class User extends Model {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
+  bio: string;
+  // all images will be stored in the s3 bucket
+  @Column({ nullable: true })
+  avatar: string;
+
+  @Column({ nullable: true })
   fname: string;
 
-  @Column()
+  @Column({ nullable: true })
   lname: string;
 
   @Column()
   acctType: string;
+  // these credit columns will reset every month
+  @Column({ default: 0 })
+  creditsToSpend: number;
 
   @Column({ default: 0 })
-  credits: number;
+  creditsAcquired: number;
+  // this one will not reset
+  @Column({ default: 0 })
+  totalCreditsAcquired: number;
+
+  @ManyToOne(() => Beat, (beat) => beat.artist)
+  uploadedBeats: Beat;
 
   @Column({ default: 0 })
   subTier: 0 | 1 | 2 | 3;
