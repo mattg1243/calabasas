@@ -4,15 +4,15 @@ FROM node:16-alpine
 WORKDIR /app
 # build server
 COPY src ./src
-COPY package*.json .
-COPY tsconfig.json .
+COPY package*.json ./
+COPY tsconfig.json ./
 RUN npm install
 RUN npm run build
 RUN ls
 # build frontend
 WORKDIR /app/client
 COPY client /app/client
-COPY client/package*json /app/client
+COPY client/package*json /app/client/
 COPY client/tsconfig.json .
 RUN npm install
 RUN npm run build
