@@ -4,3 +4,5 @@ node_modules/
 dist/
 client/build
 SweatshopCalabasas.session.sql
+.DS_Store
+sample_beats/

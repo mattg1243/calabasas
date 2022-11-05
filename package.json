@@ -6,6 +6,8 @@
     "start": "node ./dist/src/app.js",
     "prodstart": "node ./dist/app.js",
     "dockerstart": "docker run --rm -it --env-file ./.env -p 2222:2222/tcp -p 3001:3001/tcp -p 8080:8080/tcp sweatshopcalabasas:latest",
+    "dockertag": "docker tag sweatshop-calabasas:latest 878111695775.dkr.ecr.us-east-1.amazonaws.com/sweatshop-calabasas:latest",
+    "ecspush": "npm run dockertag && docker push 878111695775.dkr.ecr.us-east-1.amazonaws.com/sweatshop-calabasas:latest",
     "devstart": "tsc-watch --noClear -p ./tsconfig.json --onSuccess \"node ./dist/src/app.js\"",
     "build": "tsc",
     "typeorm": "typeorm-ts-node-commonjs",
@@ -13,6 +15,7 @@
     "db:push": "rm -rf dist && npm run build && typeorm-ts-node-commonjs migration:run -d ./src/database/dataSource.ts"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.0",
     "aws-sdk": "^2.1248.0",
     "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
