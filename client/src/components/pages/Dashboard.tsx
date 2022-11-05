@@ -15,8 +15,10 @@ export default function Dashboard() {
       <Header>
         Dashboard
         <Breadcrumb>wow</Breadcrumb>
-        <Upload name='beat' action='http://localhost:3001/api/upload/beat'>Upload Beat</Upload>
-        <Content>
+        <Upload name="beat" action="http://localhost:3001/api/upload/beat">
+          Upload Beat
+        </Upload>
+        <Content style={{ display: 'flex', flexDirection: 'column' }}>
           {topTen.map((beat) => {
             return <DashRow beat={beat} />;
           })}
